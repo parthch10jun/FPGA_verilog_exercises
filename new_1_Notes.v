@@ -118,8 +118,8 @@ Lecture 8:
 			wire t1, t2, t3;
 			nand #5 m1(t1, a, b); //This means delay is 50ns
 		endmodule
-/*	4. Positional and explicit association: same order of parameters, versus arbitary order
-	of parameters, chances of errors are less in explicit association
+/*	4. Positional and explicit association: same order of parameters, versus 
+	arbitary order of parameters, chances of errors are less in explicit association
 	5. Hardware modelling issues:
 		a net data type always maps to 'wire' during synthesis
 		whereas reg type maps to a wire or a 'storage cell' 
@@ -140,7 +140,7 @@ Lecture 8:
 			output reg f1, f2;
 			wire A, B, C;
 			always @(A, B, C) //either A or B or C changes their state
-			begin 					latch will be enabled then / /
+			begin 					//latch will be enabled then / /
 				f1 = ~(A & B);
 				f2 = f1 ^ f2;
 			end
