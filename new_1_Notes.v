@@ -93,4 +93,55 @@
 		endmodule
 	// to make it a 16 bit counter, I would just have to modify 
 	// N as 15, and that would save me from changing the whole code
-		
+
+Lecture 8:
+	1. primitive gates:
+		and #5  G(a, b, c, d, e, f);
+		/*	 ^    ^  ^  ^  ^  ^  ^   
+			 |    |  |  |  |  |  |   
+			 |    |  |__|__|__|__|
+		   delay  outp    inpt
+			 | 
+			 |
+		only used by simulation tools
+		ignored by logic synthesis tools
+	2. 'timescale directive - 'timescale <reference_time_unit>/<time_precision>
+													|					|
+													|					|	
+							this specifies unit for time measurement	|--> precision to which the delays
+																			are rounded off during 
+																				simulation */
+	3. 	'timescale 10ns/1ns
+		module exclusive_or (f, a, b);
+			input a, b;
+			output f;
+			wire t1, t2, t3;
+			nand #5 m1(t1, a, b); //This means delay is 50ns
+		endmodule
+/*	4. Positional and explicit association: same order of parameters, versus arbitary order
+	of parameters, chances of errors are less in explicit association
+	5. Hardware modelling issues:
+		a net data type always maps to 'wire' during synthesis
+		whereas reg type maps to a wire or a 'storage cell' 
+		depending upon the context. */
+		module reg_maps_to_wire (A, B, C, f1, f2); //reg maps to wire here
+			input A, B, C;
+			output reg f1, f2;
+			wire A, B, C;
+			always @(A, B, C) //either A or B or C changes their state
+			begin 
+				f1 = ~(A & B);
+				f2 = f1 ^ C;
+			end
+		endmodule
+	//	--------------*******--------------- // 
+		module reg_maps_to_what (A, B, C, f1, f2); //reg f2 maps to a latch here
+			input A, B, C;
+			output reg f1, f2;
+			wire A, B, C;
+			always @(A, B, C) //either A or B or C changes their state
+			begin 					latch will be enabled then / /
+				f1 = ~(A & B);
+				f2 = f1 ^ f2;
+			end
+		endmodule
