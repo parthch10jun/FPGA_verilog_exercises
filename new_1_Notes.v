@@ -100,17 +100,17 @@ Lecture 8:
 		/*	 ^    ^  ^  ^  ^  ^  ^   
 			 |    |  |  |  |  |  |   
 			 |    |  |__|__|__|__|
-		   delay  outp    inpt
+		      delay  outp    inpt
 			 | 
 			 |
 		only used by simulation tools
 		ignored by logic synthesis tools
 	2. 'timescale directive - 'timescale <reference_time_unit>/<time_precision>
-													|					|
-													|					|	
-							this specifies unit for time measurement	|--> precision to which the delays
-																			are rounded off during 
-																				simulation */
+																		
+																			
+				(this specifies unit for time measurement)	 (precision to which the delays
+															are rounded off during 
+															simulation) */
 	3. 	'timescale 10ns/1ns
 		module exclusive_or (f, a, b);
 			input a, b;
