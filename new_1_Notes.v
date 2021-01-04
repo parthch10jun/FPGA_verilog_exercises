@@ -40,10 +40,10 @@
 	simulation only features make no sense when hardware is being
 	synthesised, say we instantiate a gate and specify the delay of
 	this gate, this delay value is rendered useless when the gate
-	is synthesised since this synthesised gate will have its own delay. */
+	is synthesised since this synthesised gate will have its own delay. 
 //	2. time is used for simulation
 //	3. reg default value is x
-// 	4. 32 bit counter with asynchronous reset:
+// 	4. 32 bit counter with asynchronous reset:*/
 		module simple_counter (clk, rst, count);
 			input clk, rst;
 			output reg [31:0] count;
@@ -56,7 +56,41 @@
 					count = count + 1
 			end
 		endmodule
-//	----> this doesn't sync with clock
-	5. 
+/*	----> this doesn't sync with clock
+	5. reg is unsigned
+	6. real --> floating point numbers
+	7. vectors - multiple bit quantities
+	8. vectors --> range[range1:range2], where range1 is
+	the MSB, range2 is LSB, n bit width where n is MSB - LSB + 1
+	9. range1 will be the starting index, range2 will be the final index
+	10. parts of a vector can be sliced and used:*/
+		reg [31:0] IR;
+		reg [5:0] opcode;
+		reg [4:0] reg1, reg2, reg3;
+		reg [10:0] offset;
+			opcode = IR[31:26];
+			reg1 = IR[25:21];
+			reg2 = IR[20:16];
+			reg3 = IR[15:11];
+			offset = IR[10:0];
+//	11. Multidim arrays can be declared, eg: 
+		reg [31:0] register_bank[15:0]; 16 32 bit registers
+// so if I call  register_bank[5] this will display the  32 bit value
+// stored in the reg number 5. 
+	12. reg[15:0] mem_word[0:1023];/* 1K 16-bit words 
+	13. Parameters:
+		Paramterized design:: An N-Bit counter */
+		module counter (clearr, clock, count);
+			parameter N = 7;
+			input clear, clock;
+			output[0:N] count; reg[0:N] count;
 			
-	 
+			always @(negedge clock)
+				if (clear)
+					count <= 0;
+				else
+					count <= count + 1;
+		endmodule
+	// to make it a 16 bit counter, I would just have to modify 
+	// N as 15, and that would save me from changing the whole code
+		
