@@ -145,3 +145,50 @@ Lecture 8:
 				f2 = f1 ^ f2;
 			end
 		endmodule
+
+/*Lecture 9:
+	Verilog operators:
+	1. Relational operators - operate on numbers and return a boolean val. 
+	2. Bitwise Operators 
+	3. Reduction operators - accept a single word operand and produce
+	a single bit as output; eg:*/
+		wire [3:0] x; wire y;
+		assign y = &x; //here & is a reduction operator
+						//y is assigned as the 'and' of the 4 bits of x
+	------------********----------
+//	3 b)Another example:
+		wire [3:0] a, b, c; wire f1, f2, f3;
+		assign a = 4'b0111;
+		assign b = 4'b1100;
+		assign c = 4'b0100;
+		assign f1 = ^a;
+		assign f2 = &(a ^ b);
+		assign f3 = ^a & ~^b;
+		/* here a = 0111, b = 1100, c = 0100, therfore f1 = 0 Xor 1 Xor 1 Xor 1 = 1
+		f2 = & (1011) = 0
+		f3 = 1 & ~(0) = 1 & 1 = 1
+	4. Shift operators: Shift right, shift left, >>, <<, 
+	arithmetic shift right >>>, MSB is added when shifting right. 
+	so if a negative number is shifted right say: 1100 --> 0110
+	if a negative number is shifted arithmetic right then: 1100 -> 1110
+	5. conditional operator: cond_expr ? true expr : false expr;
+	6. concatenation operator: Joins together bits from two or more 
+	comma separated exp.*/ 
+		assign f = {a, b};
+/*	7. Replication operator: joins together n copies of an exp m. n{m}
+		example: An 8-bit adder description */
+		module parallel_adder (sum, cout, in1, in2, cin);
+			input [7:0] in1, in2;
+			input cin;
+			output [7:0] sum;
+			output cout;
+			//BODY
+			assign #20{cout, sum} = in1 + in2 + cin;
+		endmodule
+
+Lecture 10:
+	1. Modelling are of two types: Behavioral and Structural; Behavioral
+	serves as the starting point of the design, Say sum is A xor B xor C, 
+	and Carry is A or B or C, but Structural modelling deals
+	with the hardware implementation eg. To implement carry 4 nand
+	gates will be reqd. 
