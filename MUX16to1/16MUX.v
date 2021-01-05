@@ -5,15 +5,15 @@
 // d) Make structural modeling of 2:1 MUX to have a complete structural
 // hierarchial description. 
 //Version_1:
-	module mux16to1 (in, sel, out);
-		input [15:0] in;
-		input [3:0] sel;
-		output out;
+module mux16to1 (in, sel, out);
+	input [15:0] in;
+	input [3:0] sel;
+	output out;
 		
-		//body
-		assign out = in[sel]; //interesting to note that sel can store a 4 bit value
+	//body
+	assign out = in[sel]; //interesting to note that sel can store a 4 bit value
 		//that 4 bit value can store numbers from 0 to 15, and that's 
 		// what we want to do when we select input lines
 		// which are from 0 to 15. So, in[sel] is selecting an input
 		// line from 0 to 15 and giving that to the output. 
-	endmodule
+endmodule

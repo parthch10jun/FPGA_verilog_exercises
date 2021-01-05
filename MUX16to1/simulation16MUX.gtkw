@@ -1,0 +1,24 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Tue Jan 05 19:19:49 2021
+[*]
+[dumpfile] "C:\Users\parth\fpga_verilog\mux16to1.vcd"
+[dumpfile_mtime] "Tue Jan 05 19:17:39 2021"
+[dumpfile_size] 546
+[savefile] "C:\Users\parth\fpga_verilog\simulation16MUX.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-2.949833 9 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 197
+[signals_width] 86
+[sst_expanded] 1
+[sst_vpaned_height] 153
+@22
+muxtest.A[15:0]
+@28
+muxtest.F
+@23
+muxtest.S[3:0]
+[pattern_trace] 1
+[pattern_trace] 0
