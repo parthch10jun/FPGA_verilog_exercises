@@ -186,7 +186,7 @@ Lecture 8:
 			assign #20{cout, sum} = in1 + in2 + cin;
 		endmodule
 
-Lecture 10:
+/*Lecture 10:
 	1. Modelling are of two types: Behavioral and Structural; Behavioral
 	serves as the starting point of the design, Say sum is A xor B xor C, 
 	and Carry is A or B or C, but Structural modelling deals
