@@ -262,4 +262,17 @@ Lecture 8:
 	// ------------------------------------
 		assign f = (a == 0) ? (c + d) : (c - d);
 		//refer to https://imgur.com/zWoprF8
+		input in;
+		input [0:1] select;
+		output [0:3] out;
+		
+		assign out[select] = in;//variable index 
+		//generates a decoder
+//	3. generating a D latch:
+		module level_sensitive_latch (D, Q, En);
+	 	 input D, En;
+		 output Q;
+	     // Q will remain Q if En is false
+		 assign Q = En ? D : Q;
+		endmodule
 	
