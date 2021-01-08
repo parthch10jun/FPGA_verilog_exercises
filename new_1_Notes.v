@@ -255,8 +255,11 @@ Lecture 8:
 		 input sel;
 		 output [3:0] f;
 		 
-		 assign f = sel ? a : b; //generates 4 2:1 MUXes 
+		 assign f = sel ? a : b; //generates 4 2:1 MUXes with a 
+		 // common sel line
 		 //conditional operator generates a MUX
 		endmodule
-//	3. 
+	// ------------------------------------
+		assign f = (a == 0) ? (c + d) : (c - d);
+		//refer to https://imgur.com/zWoprF8
 	
