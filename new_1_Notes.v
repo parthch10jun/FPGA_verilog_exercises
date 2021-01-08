@@ -275,4 +275,194 @@ Lecture 8:
 	     // Q will remain Q if En is false
 		 assign Q = En ? D : Q;
 		endmodule
+//	4. generating SR latch:
+		 module sr_latch (Q, Qbar, S, R);
+		  input S, R;
+		  output Q, Qbar;
+		  
+		  assign Q = ~(R & Qbar);
+		  assign Qbar = ~(S & Q);
+		 endmodule
+/* Lecture 13:
+	1. initial statement is not to be used in synthesis but only in simulation.
+	2. If there are multiple "initial blocks", all the blocks start
+	concurrently
+	3. statements start at time = 0 and execute only once. */
+	module testbench_example;
+	 reg a, b, cin, sum, cout;
+	 initial
+	  cin = 1'b0
+	  
+	 initial
+	  begin
+	   #5 a = 1'b1; b = 1'b1;
+	   #5 b = 1'b0;
+	  end
+	 
+	 initial
+	  #25 $finish;
+	endmodule 
+/*  4. "initial" and "always" blocks coexist within the same verilog
+	module
+	5. They all execute concurrently; "initial" only once and
+	"always" repeatedly. */
+	 module generating_clock;
+	  output reg clk;
+	  
+	  initial
+	   clk = 1'b0; //initialised to 0 at time = 0
+	  
+	  always
+	   #5 clk = ~clk;
+	   
+	  initial
+	   #500 $finish;
+	 
+	 endmodule
 	
+//	6. in always statements for eg: 
+		always @ (---)
+		 begin
+		  a = b + c;
+		  d = b + 2;
+		 end
+//		a and d must be 'reg' since when @ condition is false
+	//	reg will store the previous values.
+//	7. casex and casez:
+//      the casez statement treats all z values as don't cares.
+//		the casex statement treats all x and z values as don't cares.
+		reg[3:0] state; integer next_state;
+		casex (state)
+		 4'b1xxx : next_state = 0;
+		 4'bx1xx : next_state = 1;
+		 4'bxx1x : next_state = 2;
+		 4'bxxx1 : next_state = 3;
+		 default : next_state = 0;
+		endcase
+		//if state is 4'b01zx the second exp will match, next_state
+		//will be 1
+/*Lecture 14:
+	1. "repeat" loop executes the loop a fixed number of times. */
+		  repeat (<expresion>)
+			sequential_statement;
+	//	if the expression is variable, it is only evaluated
+	//	at the start of the execution, doesn't matter if it is
+	//	changed mid-execution.
+/*	2. The "forever" construct foes not use any expression
+	and executes forever until $finish is encountered in test bench.
+	3. remember to use time delay in forever construct otherwise
+		time doesn't move forward while the block endlessly repeats */
+		reg clk;
+		initial
+		begin
+			clk = 1'b0;
+			forever #5 clk = ~clk; //clock period of 10 units
+		end 
+/*	4. @(in) //in changes
+	   @(a or b or c) //any of a or b or c changes
+	   @(a, b, c) //--do--
+	   @(posedge clk) //positive edge of "clk" or clk changes from
+	   // 0 to 1 or 0 to (x, z) or (x, z) change to 1.
+	   @(*) //any var changes
+	5. synchronous set or reset means that changes take place at the
+		active edge of the clock. 
+		set _____|¯¯¯¯¯¯¯¯¯|_______
+		clk(d)__|¯¯¯¯|____|¯¯¯¯|______
+				     ↑         ↑
+				set Q = 1     set = 0
+	6. latch with enable: */
+		module latch (q, qbar, din, enable);
+		 input din, enable;
+		 output reg q, output qbar;
+		 
+		 assign qbar = ~q;
+		 
+		 always @ (din or enable)
+			begin 
+			if (enable) q = din;
+			end
+		endmodule
+/*
+Lecture 15: 
+	1. 2to1 MUX: */
+		module mux21 (in1, in0, s, f);
+			input in1, in0, s;
+			output reg f;
+			
+			always @ (in1, in0, s) // or always @(*)
+				if(s)
+					f = in1;
+				else
+					f = in0;
+		endmodule
+//	2.  negedge D flipflop:
+		module dff_negedge(D, clock, Q, Qbar);
+			 input D, clock;
+			 output reg Q, Qbar;
+			 
+			 always @(negedge clock)
+			  begin
+			   Q = D
+			   Qbar = ~D
+			  end
+		endmodule
+//	3. 4 - bit counter with asynchronous reset
+		module counter (clock, reset, count);
+			input clock, reset;
+			output reg[3:0] count;
+			
+			always @(posedge clock or posedge reset)
+			begin
+				if (reset)
+					count <= 0;
+				else
+					count <= count  + 1;
+			end
+		
+		endmodule
+// 4. A seemingly combinational but surprisingly sequential logic:
+		module incomp_state_spec (curr_state, flag);
+			input [0:1] curr_state;
+			output reg [0:1]flag;
+			
+			always @ (curr_state)
+			begin
+				//flag = 0 to make it combinational
+				case (curr_state)
+					0,1 : flag = 2;
+					3   : flag = 0;
+				endcase
+		endmodule //latch will be generated since curr_state = 2
+					//condition is not specified so it is assumed
+				// that flag will remain 2, for that a storage element
+				//is required
+// 	5. 
+		module xyz(input a, b, c, output reg f)
+			always @(*)
+				if(a == 1)
+					f = b & c; //D latch where D = b & c and en = a
+		endmodule
+	//____________________________________________
+		module xyz(input a, b, c, output reg f)
+			always @(*)
+			begin
+				f = c;
+				if (a == 1)
+					f = b & c; //2:1 MUX with first input as b & c,
+								//other as c, sel = a, output = f
+			end
+		endmodule
+		
+//	6. 
+		module ALU_4bit(input [1:0] op, input [7:0] a, input [7:0] b,
+			output reg [7:0] f);
+			parameter ADD = 2'b00, SUB = 2'b01, MUL = 2'b10, DIV = 2'b11;
+			
+			always @ (*)
+				case (op)
+					ADD : f = a + b;
+					SUB : f = a - b;
+					MUL : f = a * b;
+					DIV : f = a / b;
+			 endcase
+		endmodule
