@@ -80,7 +80,7 @@
 	12. reg[15:0] mem_word[0:1023];/* 1K 16-bit words 
 	13. Parameters:
 		Paramterized design:: An N-Bit counter */
-		module counter (clearr, clock, count);
+		module counter (clear, clock, count);
 			parameter N = 7;
 			input clear, clock;
 			output[0:N] count; reg[0:N] count;
@@ -172,9 +172,25 @@ Lecture 8:
 	so if a negative number is shifted right say: 1100 --> 0110
 	if a negative number is shifted arithmetic right then: 1100 -> 1110
 	5. conditional operator: cond_expr ? true expr : false expr;
-	6. concatenation operator: Joins together bits from two or more 
-	comma separated exp.*/ 
+	eg.*/
+		assign eq = (~i0 & ~i1) ? 1'b1:
+					(~i1 & i0)  ? 1'b0:
+					(i1 & ~i0)  ? 1'b0:
+					1'b1;
+					
+//	6. concatenation operator: Joins together bits from two or more 
+//	comma separated exp.
 		assign f = {a, b};
+	//	--------*****-------
+		wire [7:0] a;
+		wire [7:0] rot, shl, sha;
+		assign rot = {a[2:0], a[7:3]};
+		// rotate a to right 3 bits; 
+		// if a = 10110110 then a[2:0] = 110 and a[7:3] = 10110 therefore rot = 11010110;
+		assign shl = {3'b000, a[7:3]}; 
+		// shift a to right 3 bits and insert 0 (logic shift);
+		assign sha = {3{a[8]}, a[7:3]};
+		
 /*	7. Replication operator: joins together n copies of an exp m. n{m}
 		example: An 8-bit adder description */
 		module parallel_adder (sum, cout, in1, in2, cin);
@@ -185,7 +201,25 @@ Lecture 8:
 			//BODY
 			assign #20{cout, sum} = in1 + in2 + cin;
 		endmodule
-
+//	8. Expression bit-length adjustment:
+		wire [7:0] a, b;
+		assign a = 8'b00000000;
+		assign b = 0;
+/*		The first statement assigns an 8-bit value. "00000000", to a.
+		The second statement assigns the integer 0 to b.
+		Recall that the integer in Verilog is 32 bits and thus 0 is represented
+		as "00000000000000000000000000000000". Since b is 8 bits wide, it is truncated to
+		"00000000" during the assignment. */
+		-----***-----
+	//	eg2:
+		// shift 0 to MSB of sum1
+		assign suml = (a + b) >> 1;
+		// shift carry-out of a+b to MSB of sum2
+		assign sum2 = (0 + a + b) >> 1; 
+		//an alternative to calculate sum2 which is less prone to error:
+		wire [8:0] sum_ext;
+		assign sum_ext = {1'b0, a} + {1'b0, b};
+		assign sum2 = sum_ext[9:1];
 /*Lecture 10:
 	1. Modelling are of two types: Behavioral and Structural; Behavioral
 	serves as the starting point of the design, Say sum is A xor B xor C, 
