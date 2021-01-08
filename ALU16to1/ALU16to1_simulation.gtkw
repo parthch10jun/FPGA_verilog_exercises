@@ -1,0 +1,18 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Thu Jan 07 13:38:39 2021
+[*]
+[dumpfile] "C:\Users\parth\fpga_verilog\ALU16to1\alu.cd"
+[dumpfile_mtime] "Thu Jan 07 13:38:13 2021"
+[dumpfile_size] 1072
+[savefile] "C:\Users\parth\fpga_verilog\ALU16to1\ALU16to1_simulation.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-2.641711 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 197
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 153
+[pattern_trace] 1
+[pattern_trace] 0

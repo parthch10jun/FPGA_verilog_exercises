@@ -1,0 +1,109 @@
+#! /c/iverilog/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-965-g55e06db6)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_00000000010ed120 .scope module, "alutest" "alutest" 2 1;
+ .timescale 0 0;
+v0000000000fc5060_0 .net "Ca", 0 0, L_0000000000fc54c0;  1 drivers
+v0000000000fc4200_0 .net "Ovf", 0 0, L_0000000000f6cdd0;  1 drivers
+v0000000000fc4c00_0 .net "Pa", 0 0, L_0000000000fc4340;  1 drivers
+v0000000000fc45c0_0 .net "Si", 0 0, L_0000000000fc4ac0;  1 drivers
+v0000000000fc4e80_0 .var "X", 15 0;
+v0000000000fc4a20_0 .var "Y", 15 0;
+v0000000000fc4fc0_0 .net "Z", 15 0, L_0000000000fc3da0;  1 drivers
+v0000000000fc4660_0 .net "Ze", 0 0, L_0000000000fc51a0;  1 drivers
+S_00000000010ed2b0 .scope module, "DUT" "ALU" 2 3, 3 1 0, S_00000000010ed120;
+ .timescale 0 0;
+    .port_info 0 /INPUT 16 "X";
+    .port_info 1 /INPUT 16 "Y";
+    .port_info 2 /OUTPUT 16 "Z";
+    .port_info 3 /OUTPUT 1 "sign";
+    .port_info 4 /OUTPUT 1 "zero";
+    .port_info 5 /OUTPUT 1 "carry";
+    .port_info 6 /OUTPUT 1 "parity";
+    .port_info 7 /OUTPUT 1 "overflow";
+L_0000000000f6cd60 .functor AND 1, L_0000000000fc3940, L_0000000000fc5240, C4<1>, C4<1>;
+L_0000000000f6d000 .functor NOT 1, L_0000000000fc3c60, C4<0>, C4<0>, C4<0>;
+L_0000000000f6cc80 .functor AND 1, L_0000000000f6cd60, L_0000000000f6d000, C4<1>, C4<1>;
+L_0000000000f6d0e0 .functor NOT 1, L_0000000000fc4700, C4<0>, C4<0>, C4<0>;
+L_0000000000f6ccf0 .functor NOT 1, L_0000000000fc47a0, C4<0>, C4<0>, C4<0>;
+L_0000000000f6d2a0 .functor AND 1, L_0000000000f6d0e0, L_0000000000f6ccf0, C4<1>, C4<1>;
+L_0000000000f6d150 .functor AND 1, L_0000000000f6d2a0, L_0000000000fc4ca0, C4<1>, C4<1>;
+L_0000000000f6cdd0 .functor OR 1, L_0000000000f6cc80, L_0000000000f6d150, C4<0>, C4<0>;
+v0000000000f6b450_0 .net "X", 15 0, v0000000000fc4e80_0;  1 drivers
+v0000000000f6b630_0 .net "Y", 15 0, v0000000000fc4a20_0;  1 drivers
+v0000000000f6b270_0 .net "Z", 15 0, L_0000000000fc3da0;  alias, 1 drivers
+L_0000000000fcd8c0 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0000000000f6bb30_0 .net *"_ivl_10", 0 0, L_0000000000fcd8c0;  1 drivers
+v0000000000f6b770_0 .net *"_ivl_11", 16 0, L_0000000000fc3f80;  1 drivers
+v0000000000f6b8b0_0 .net *"_ivl_20", 0 0, L_0000000000fc3940;  1 drivers
+v0000000000f6b9f0_0 .net *"_ivl_22", 0 0, L_0000000000fc5240;  1 drivers
+v0000000000f6bef0_0 .net *"_ivl_23", 0 0, L_0000000000f6cd60;  1 drivers
+v0000000000f6b6d0_0 .net *"_ivl_26", 0 0, L_0000000000fc3c60;  1 drivers
+v0000000000f6bdb0_0 .net *"_ivl_27", 0 0, L_0000000000f6d000;  1 drivers
+v0000000000f6b810_0 .net *"_ivl_29", 0 0, L_0000000000f6cc80;  1 drivers
+v0000000000f6b950_0 .net *"_ivl_3", 16 0, L_0000000000fc4980;  1 drivers
+v0000000000f6b090_0 .net *"_ivl_32", 0 0, L_0000000000fc4700;  1 drivers
+v0000000000f6b310_0 .net *"_ivl_33", 0 0, L_0000000000f6d0e0;  1 drivers
+v0000000000f6bc70_0 .net *"_ivl_36", 0 0, L_0000000000fc47a0;  1 drivers
+v0000000000f6bd10_0 .net *"_ivl_37", 0 0, L_0000000000f6ccf0;  1 drivers
+v0000000000f6b130_0 .net *"_ivl_39", 0 0, L_0000000000f6d2a0;  1 drivers
+v0000000000f6b1d0_0 .net *"_ivl_42", 0 0, L_0000000000fc4ca0;  1 drivers
+v0000000000fc4d40_0 .net *"_ivl_43", 0 0, L_0000000000f6d150;  1 drivers
+L_0000000000fcd878 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0000000000fc5420_0 .net *"_ivl_6", 0 0, L_0000000000fcd878;  1 drivers
+v0000000000fc4b60_0 .net *"_ivl_7", 16 0, L_0000000000fc5100;  1 drivers
+v0000000000fc3bc0_0 .net "carry", 0 0, L_0000000000fc54c0;  alias, 1 drivers
+v0000000000fc3ee0_0 .net "overflow", 0 0, L_0000000000f6cdd0;  alias, 1 drivers
+v0000000000fc38a0_0 .net "parity", 0 0, L_0000000000fc4340;  alias, 1 drivers
+v0000000000fc4f20_0 .net "sign", 0 0, L_0000000000fc4ac0;  alias, 1 drivers
+v0000000000fc4de0_0 .net "zero", 0 0, L_0000000000fc51a0;  alias, 1 drivers
+L_0000000000fc54c0 .part L_0000000000fc3f80, 16, 1;
+L_0000000000fc3da0 .part L_0000000000fc3f80, 0, 16;
+L_0000000000fc4980 .concat [ 16 1 0 0], v0000000000fc4e80_0, L_0000000000fcd878;
+L_0000000000fc5100 .concat [ 16 1 0 0], v0000000000fc4a20_0, L_0000000000fcd8c0;
+L_0000000000fc3f80 .arith/sum 17, L_0000000000fc4980, L_0000000000fc5100;
+L_0000000000fc4ac0 .part L_0000000000fc3da0, 15, 1;
+L_0000000000fc51a0 .reduce/nor L_0000000000fc3da0;
+L_0000000000fc4340 .reduce/xor L_0000000000fc3da0;
+L_0000000000fc3940 .part v0000000000fc4e80_0, 15, 1;
+L_0000000000fc5240 .part v0000000000fc4a20_0, 15, 1;
+L_0000000000fc3c60 .part L_0000000000fc3da0, 15, 1;
+L_0000000000fc4700 .part v0000000000fc4e80_0, 15, 1;
+L_0000000000fc47a0 .part v0000000000fc4a20_0, 15, 1;
+L_0000000000fc4ca0 .part L_0000000000fc3da0, 15, 1;
+    .scope S_00000000010ed120;
+T_0 ;
+    %vpi_call 2 6 "$dumpfile", "alu.cd" {0 0 0};
+    %vpi_call 2 6 "$dumpvars", 32'sb00000000000000000000000000000000, S_00000000010ed120 {0 0 0};
+    %vpi_call 2 7 "$monitor", $time, "X = %h, Y = %h, Z = %h, Si = %b, Ze = %b, Ca = %b, Pa = %b, Ovf = %b", v0000000000fc4e80_0, v0000000000fc4a20_0, v0000000000fc4fc0_0, v0000000000fc45c0_0, v0000000000fc4660_0, v0000000000fc5060_0, v0000000000fc4c00_0, v0000000000fc4200_0 {0 0 0};
+    %delay 5, 0;
+    %pushi/vec4 36863, 0, 16;
+    %store/vec4 v0000000000fc4e80_0, 0, 16;
+    %pushi/vec4 32768, 0, 16;
+    %store/vec4 v0000000000fc4a20_0, 0, 16;
+    %delay 5, 0;
+    %pushi/vec4 65534, 0, 16;
+    %store/vec4 v0000000000fc4e80_0, 0, 16;
+    %pushi/vec4 2, 0, 16;
+    %store/vec4 v0000000000fc4a20_0, 0, 16;
+    %delay 5, 0;
+    %pushi/vec4 43690, 0, 16;
+    %store/vec4 v0000000000fc4e80_0, 0, 16;
+    %pushi/vec4 21845, 0, 16;
+    %store/vec4 v0000000000fc4a20_0, 0, 16;
+    %delay 5, 0;
+    %vpi_call 2 11 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "test_bench.v";
+    "ALU.v";
