@@ -221,8 +221,42 @@ Lecture 8:
 		assign sum_ext = {1'b0, a} + {1'b0, b};
 		assign sum2 = sum_ext[9:1];
 /*Lecture 10:
-	1. Modelling are of two types: Behavioral and Structural; Behavioral
+	1. Modeling are of two types: Behavioral and Structural; Behavioral
 	serves as the starting point of the design, Say sum is A xor B xor C, 
-	and Carry is A or B or C, but Structural modelling deals
+	and Carry is A or B or C, but Structural modeling deals
 	with the hardware implementation eg. To implement carry 4 nand
 	gates will be reqd. 
+ Lecture 11:
+
+	Structural modeling of Carry Lookahead Adder
+	Consider the ith stage in the addition process;
+	defining gi = Ai & Bi
+	pi = Ai xor Bi
+	gi = 1 represents the condition where a carry is generated
+	in stage-i independent of the other stages
+	pi = 1 represents the condition where input carry Ci. 
+	will be propagated to the output carry Ci+1.
+	therefore Ci+1 = gi + pi*ci ***A recursive Expression***
+	therefore c1 = g0 + c0p0
+	c2 = g1 + g0p1 + c0p0p1
+	c3 = g2 + g1p2 + g0p1p2 + c0p0p1p2
+	c4 = g3 + g2p3 + g1p2p3 + g0p1p2p3 + c0p0p1p2p3
+	S0 = p0 Xor c0 since A0 xor B0 xor C0 = p0 xor c0
+	S1 = p1 Xor c1
+	S2 = p2 Xor c2
+	S3 = p3 Xor c3
+
+ Lecture 12:
+	1. The assign statements are followed by procedural descriptions.
+	2. The 'assign' statements are used to model behavioral descrip-
+	tions. eg: */
+		module generate_set_of_MUX(a, b, f, sel);
+		 input [3:0] a, b;
+		 input sel;
+		 output [3:0] f;
+		 
+		 assign f = sel ? a : b; //generates 4 2:1 MUXes 
+		 //conditional operator generates a MUX
+		endmodule
+//	3. 
+	
